@@ -2,4 +2,4 @@
 
 source ./init.sh
 
-docker kill -s HUP nginx-docker-nginx-1
+docker kill -s HUP $CONTAINER_NAME

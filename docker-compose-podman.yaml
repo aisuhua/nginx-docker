@@ -1,19 +1,11 @@
 version: '3.9'
 
-networks:
-  nginx:
-    external: false
-  php-docker_php:
-    external: true
-
 services:
   nginx:
     image: nginxinc/nginx-unprivileged:1.23.4
     restart: always
     user: "${USERID:-1001}:${GID:-0}"
-    networks:
-      - nginx
-    #network_mode: host
+    network_mode: host
     volumes: 
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
@@ -24,6 +16,3 @@ services:
       - "./conf/${IDC_NAME:-dev}/htpasswd:/etc/nginx/htpasswd"
       - /opt/www:/opt/www
     working_dir: /etc/nginx
-    ports:
-      - 80:8080
-      - 443:8443
