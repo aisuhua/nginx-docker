@@ -1,0 +1,12 @@
+name: nginx-docker
+run-name: deploy nginx-docker
+on: [push]
+
+jobs:
+  :
+    runs-on: ubuntu-latest
+    steps:
+        uses: actions/checkout@v3
+      - name: Build
+        run: |
+          ls ${{ gitea.workspace }}
