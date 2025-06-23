@@ -1,28 +1,18 @@
-version: '3.9'
-
-networks:
-  nginx:
-    external: false
-  php-docker_php:
-    external: true
+version: '3'
 
 services:
   nginx:
-    image: nginxinc/nginx-unprivileged:1.23.4
+    image: nginxinc/nginx-unprivileged:1.27.5
     restart: always
-    user: "${USERID:-1001}:${GID:-0}"
-    networks:
-      - nginx
-      - php-docker_php
-    #network_mode: host
+    user: "${USERID:-1000}:${GID:-0}"
     volumes: 
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
-      - "./conf/${IDC_NAME:-dev}/nginx.conf:/etc/nginx/nginx.conf"
-      - "./conf/${IDC_NAME:-dev}/http.d:/etc/nginx/http.d"
-      - "./conf/${IDC_NAME:-dev}/stream.d:/etc/nginx/stream.d"
-      - "./conf/${IDC_NAME:-dev}/ssl:/etc/nginx/ssl"
-      - "./conf/${IDC_NAME:-dev}/htpasswd:/etc/nginx/htpasswd"
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./http.d:/etc/nginx/http.d
+      - ./stream.d:/etc/nginx/stream.d
+      - ./certs:/etc/nginx/certs
+      - ./htpasswd:/etc/nginx/htpasswd"
       - /opt/www:/opt/www
     working_dir: /etc/nginx
     ports:
