@@ -1,5 +1,9 @@
 version: '3'
 
+networks:
+  php80-docker_php:
+    external: true
+
 services:
   nginx:
     image: nginxinc/nginx-unprivileged:1.27.5
@@ -18,3 +22,6 @@ services:
     ports:
       - 80:8080
       - 443:8443
+    networks:
+      # 为了能使用 php80 访问 php-fpm
+      - php80-docker_php
